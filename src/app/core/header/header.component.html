@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-toggleable-md fixed-top navbar-dark bg-primary">
+  <button class="navbar-toggler hidden-sm-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-controls="collapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" routerLink="home"><i class="{{ portalIcon }}" aria-disabled="true"></i> {{title}}</a>
+  <div [ngbCollapse]="!isNavbarCollapsed" class="collapse navbar-collapse" id="collapsingNavbar">
+    <ul class="navbar-nav mr-auto" *ngIf="authorized">
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngIf="!authorized && login !== undefined">
+    </ul>
+  </div>
+</nav>
