@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,6 @@ import { Title } from '@angular/platform-browser';
 })
 export class AppComponent {
   title: string = 'Customer Manager';
-
   constructor(private titleService: Title) {
     this.titleService.setTitle(this.title);
   }

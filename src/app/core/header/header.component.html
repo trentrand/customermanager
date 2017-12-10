@@ -3,10 +3,10 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" routerLink="home"><i class="{{ portalIcon }}" aria-disabled="true"></i> {{title}}</a>
-  <div [ngbCollapse]="!isNavbarCollapsed" class="collapse navbar-collapse" id="collapsingNavbar">
+  <!-- <div [ngbCollapse]="!isNavbarCollapsed" class="collapse navbar-collapse" id="collapsingNavbar">
     <ul class="navbar-nav mr-auto" *ngIf="authorized">
     </ul>
-    <ul class="navbar-nav ml-auto" *ngIf="!authorized && login !== undefined">
+    <ul class="navbar-nav ml-auto" *ngIf="!authorized">
     </ul>
-  </div>
+  </div> -->
 </nav>

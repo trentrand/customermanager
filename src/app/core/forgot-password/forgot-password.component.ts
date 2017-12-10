@@ -7,18 +7,19 @@ import { Router, ActivatedRoute } from '@angular/router';
     styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
-    error: string;
-    success: string;
-    email = '';
+  success: string;
+  error: string;
+  email = '';
 
-    constructor() {
-    }
+  constructor() {
+  }
 
-    ngOnInit() {
+  ngOnInit() {
 
-    }
+  }
 
-    public requestPasswordReset = (email: string) => {
-      this.success = this.error = null;
-    }
+  public requestPasswordReset = (email: string) => {
+    this
+  }
+
 }

@@ -12,7 +12,8 @@ export class HeaderComponent implements OnInit {
   title: string
   portalIcon = 'fa fa-paw'
   currentRoute: any
-
+  isNavbarCollapsed: boolean
+  
   constructor(private titleService: Title, private route: ActivatedRoute) {
     this.title = this.titleService.getTitle()
   }
