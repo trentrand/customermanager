@@ -62,7 +62,7 @@
   "defaults": {
     "styleExt": "scss",
     "serve": {
-      "port": 3000
+      "port": 4200
     },
     "component": {
     }
