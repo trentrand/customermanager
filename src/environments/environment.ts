@@ -1,5 +1,13 @@
 export const environment = {
   production: false,
   title: 'Customer Manager',
-  description: 'Welcome to the Customer Manager Development Environment'
+  description: 'Welcome to the Customer Manager Development Environment',
+  firebase: {
+    apiKey: "AIzaSyAO1bqdxzrOuz0Kt47ePMW9tZQHgat5VN0",
+    authDomain: "customermanager-f4a7c.firebaseapp.com",
+    databaseURL: "https://customermanager-f4a7c.firebaseio.com",
+    projectId: "customermanager-f4a7c",
+    storageBucket: "customermanager-f4a7c.appspot.com",
+    messagingSenderId: "117307765306"
+  }
 };
