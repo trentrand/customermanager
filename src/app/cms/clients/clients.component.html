@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="portal-header">
+    <div class="portal-logo">
+      <!-- <img src="./assets/img/client-logo.png" alt="Client Form Logo" /> -->
+    </div>
+    <br>
+    <div class="lead">Clients</div>
+  </div>
+  <div class="card mt-4">
+    <div class="card-header">
+      <ul class="nav justify-content-start">
+        <form class="form-inline my-2 my-lg-0">
+          <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search Clients" aria-label="Search Clients" [(ngModel)]="searchFilter" (keyup.enter)="updateParam('search', searchFilter)" (keyup)="searchChanged($event)" name="search">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="button" (click)="updateParam('search', searchFilter)" *ngIf="showSearchButton()"><i class="fa fa-search"></i></button>
+              <button class="btn btn-primary" type="button" (click)="updateParam('search', '')" *ngIf="!showSearchButton()"><i class="fa fa-times"></i></button>
+            </span>
+          </div>
+        </form>
+        <button type="button" class="btn btn-primary ml-auto" (click)="createNewItem()"><i class="fa fa-plus-circle"></i> New Client</button>
+      </ul>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="my-3" role="group" *ngIf="searchFilter">
+        <span [innerHTML]="getSearchPrompt()"></span>
+      </div>
+      <!-- <div class="my-3" role="group" *ngIf="this.listItems?.length == 0 && !searchFilter">
+        <span>No results found</span>
+      </div> -->
+    </div>
+    <div class="list-group list-group-flush">
+      <div class="list-group-item list-group-item-action d-flex justify-content-between" *ngFor="let item of listItems | async" (click)="listItemClicked(item.id)">
+        <div>
+          <span>{{item.first_name}}</span><br>
+          <small *ngIf="item.first_name" class="text-muted">{{item.first_name}}</small>
+        </div>
+        <div class="d-flex align-items-start">
+          <p>Right</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer d-flex justify-content-between align-items-baseline">
+      <div *ngIf="count / limit > 1" ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="itemsPerPage" ngbDropdownToggle>{{limit}}</button>
+        <div ngbDropdownMenu aria-labelledby="itemsPerPage">
+          <a *ngFor="let n of [10, 25, 50, 100]" class="dropdown-item" (click)="updateParam('limit', n)">{{n}}</a>
+        </div>
+        <span>clients per page</span>
+      </div>
+      <ngb-pagination *ngIf="count / limit > 1" [collectionSize]="count" [(pageSize)]="limit" [(page)]="page" [directionLinks]="count / limit > 1" (pageChange)="pageChanged()" [maxSize]="maxSize" aria-label="clients pagination'"> </ngb-pagination>
+      <span class="text-muted">Showing {{(page-1)*limit}} to {{page*limit <= count ? page*limit : count}} of {{count}} clients</span>
+    </div>
+  </div>
+</div>
