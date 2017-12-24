@@ -14,7 +14,9 @@ import { ClientData } from '@cms/clients/client';
 })
 export class ClientFormComponent implements OnChanges, OnInit {
   params: any
+
   editMode: boolean
+  editIndex?: number
 
   @Input()
   client: ClientData;
@@ -39,23 +41,26 @@ export class ClientFormComponent implements OnChanges, OnInit {
     this.route.params.subscribe((params: Params) => {
       this.params = params
     })
-    this.createForm()
+    this.createClientForm()
+    this.createPetForm()
     if (this.editMode) {
-      // this.clientService.getClient(this.params.id).subscribe(
-      //   client => {
-      //     this.client = client
-      //     this.ngOnChanges()
-      //   },
-      //   error => {
-      //     console.log('An error occured: ', error)
-      //   }
-      // )
-      this.clientForm.patchValue(this.client)
+      this.clientService.getClient(this.params.id).subscribe(
+        client => {
+          this.client = client
+          this.clientForm.patchValue(this.client)
+          this.patchPets(this.client.pets)
+          this.ngOnChanges()
+        },
+        error => {
+          console.log('An error occured: ', error)
+        }
+      )
     }
     this.toggleEditFields(this.editMode)
   }
 
-  createForm = () => {
+  // Setup client form
+  createClientForm = () => {
     this.clientForm = this.fb.group({
       id: new FormControl(),
       first_name: new FormControl('', [
@@ -69,22 +74,29 @@ export class ClientFormComponent implements OnChanges, OnInit {
       secondary_phone: new FormControl(),
       veterinarian: new FormControl(),
       comments: new FormControl(),
-      pets: new FormArray([
-        new FormGroup({
-          name: new FormControl(),
-          breed: new FormControl(),
-          age: new FormControl(),
-          sex: new FormControl(),
-          bow: new FormControl(),
-          bandana: new FormControl(),
-          comments: new FormArray([
-            new FormControl('')
-          ])
-        })
-      ])
+      pets: new FormArray([])
     })
-    this.clientForm.reset()
+  }
 
+  // Save changes to currently-edited Client Record
+  saveClient = (client: ClientData) => {
+    return this.clientService.updateClient(client)
+    .then((docRef) => {
+      console.log("Document updated", docRef);
+    })
+  }
+
+  // Create new Client Record
+  createClient = (client: ClientData) => {
+    let id = this.clientService.create(client)
+    .then(docRef => {
+      console.log("Document written with ID: ", docRef.id);
+      this.router.navigate(['/client', docRef.id])
+    })
+  }
+
+  // Setup pet form
+  createPetForm = () => {
     this.petForm = this.fb.group({
       name: new FormControl('', [
         Validators.required
@@ -96,16 +108,45 @@ export class ClientFormComponent implements OnChanges, OnInit {
       bandana: new FormControl(),
       notes: new FormControl()
     })
-    this.petForm.disable()
   }
 
-  savePet = (form: FormGroup) => {
-    const newPet = Object.assign({}, form.value)
-    // TODO push to .value or .controls?
+  // Setup pet from and patch pet at index
+  editPetAtIndex = (index: number) => {
+    this.editIndex = index
+
+    let petAtIndex = this.pets.value[index]
+    this.petForm.patchValue(petAtIndex)
+  }
+
+  // Patch Pets FormArray with pets data
+  patchPets = (pets: any[]) => {
+    let formArray = <FormArray> this.pets;
+    this.clearFormArray(formArray)
+    pets.forEach(pet => {
+      formArray.push(this.fb.group({
+        name: pet.name,
+        breed: pet.breed,
+        age: pet.age,
+        sex: pet.sex,
+        bow: pet.bow,
+        bandana: pet.bandana,
+        notes: pet.notes
+      }))
+    })
+  }
+
+  // Append new pet
+  // If edit mode, automatically save the Client Record
+  createPet = (form: FormGroup) => {
+    const newPet = form.value
     this.pets.value.push(newPet)
+    if (this.editMode) {
+      this.saveClient(this.clientForm.value)
+    }
     this.disableAndResetForm(form)
   }
 
+  /* Form Helpers */
   disableAndResetForm = (form: FormArray | FormGroup, toValue?: any) => {
     form.disable()
     if (toValue && form instanceof FormArray) {
@@ -113,19 +154,10 @@ export class ClientFormComponent implements OnChanges, OnInit {
     } else form.reset()
   }
 
-  saveClient = (client: ClientData) => {
-    return this.clientService.create(client)
-    .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-    })
-  }
-
-  createClient = (client: ClientData) => {
-    let id = this.clientService.create(client)
-    .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-      // this.router.navigate(['/client', docRef.id])
-    })
+  clearFormArray = (formArray: FormArray) => {
+    while (formArray.length !== 0) {
+      formArray.removeAt(0)
+    }
   }
 
   onSubmit = () => {
@@ -144,13 +176,16 @@ export class ClientFormComponent implements OnChanges, OnInit {
   }
 
   toggleEditFields = (editMode: boolean) => {
+    this.petForm.disable()
+
     if (editMode) {
-      // Manipulate controls that are edit mode exclusive
+      // edit-only modifications
     } else {
-      // Manipulate controls that are new mode exclusive
+      // new-only modifications
     }
   }
 
+  /* Client Form interface */
   get id() { return this.clientForm.get('id') }
   get first_name() { return this.clientForm.get('first_name') }
   get last_name() { return this.clientForm.get('last_name') }

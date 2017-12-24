@@ -80,22 +80,22 @@
       <ul class="nav justify-content-start">
         Pets
         <!-- Edit Mode Buttons -->
-        <ng-container *ngIf="petForm.disabled">
-          <button type="button" class="btn btn-primary ml-auto" (click)="petForm.enable()"><i class="fa fa-plus-circle mr-1"></i>Add New Pet</button>
+        <ng-container *ngIf="!petForm || petForm.disabled">
+          <button type="button" class="btn btn-primary ml-auto" (click)="createPetForm()"><i class="fa fa-plus-circle mr-1"></i>Add New Pet</button>
         </ng-container>
         <!-- New Mode Buttons -->
-        <ng-container *ngIf="!petForm.disabled">
+        <ng-container *ngIf="petForm && !petForm.disabled">
           <div class="ml-auto">
             <button class="btn btn-warning" role="button" (click)="disableAndResetForm(petForm)">
               Cancel
             </button>
-            <button type="submit" (click)="savePet(petForm)" [disabled]="petForm.pristine || !petForm.valid" class="btn btn-success"><i class="fa fa-save mr-1"></i>Save</button>
+            <button type="submit" (click)="createPet(petForm)" [disabled]="petForm.pristine || !petForm.valid" class="btn btn-success"><i class="fa fa-save mr-1"></i>Save</button>
           </div>
         </ng-container>
 
       </ul>
     </div>
-    <div class="d-flex justify-content-center" *ngIf="(editId == undefined && pets.length == 0) && petForm.disabled">
+    <div class="d-flex justify-content-center" *ngIf="(this.petForm.disabled && pets.value.length == 0)">
       <div class="my-3" role="group">
         <span>No Pets</span>
       </div>
@@ -153,12 +153,12 @@
         </div>
       </ng-container>
       <ng-container *ngFor="let pet of pets.value; let i=index">
-        <a class="list-group-item list-group-item-action d-flex w-100 justify-content-between">
+        <a class="list-group-item d-flex w-100 justify-content-between">
           <div>
             <h6 class="mb-0">{{pet.name}}</h6>
             <small class="text-muted">{{pet.sex}}</small>
           </div>
-          <button class="btn btn-primary" role="button" (click)="editId = i">
+          <button class="btn btn-primary" role="button" (click)="editPetAtIndex(i)">
             <i class="fa fa-edit"></i>
           </button>
         </a>
@@ -168,6 +168,6 @@
   <br />
   <pre>Client value: {{ client | json }}</pre>
   <pre>Client Form: {{ clientForm.value | json }}</pre>
-  <pre>Pet Form: {{ petForm.value | json }}</pre>
+  <pre>Pet Form: {{ pets.value | json }}</pre>
   <pre>clientForm status: {{ clientForm.status | json}}</pre>
 </div>

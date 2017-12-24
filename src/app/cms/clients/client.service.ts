@@ -32,19 +32,20 @@ export class ClientService {
   }
 
   getClient(id: string) {
-    return this.afs.doc<ClientData>(`${this.basePath}/${id}`);
+    this.clientDocument = this.afs.doc<ClientData>(`${this.basePath}/${id}`);
+    return this.clientDocument.valueChanges()
   }
 
   create(data: ClientData) {
     return this.clientsCollection.add(data)
   }
 
-  updateClient(id: string, data: Partial<ClientData>) {
-    return this.getClient(id).update(data);
+  updateClient(data: ClientData) {
+    return this.clientDocument.update(data)
   }
 
-  deleteClient(id: string) {
-    return this.getClient(id).delete();
-  }
+  // deleteClient(id: string) {
+  //   return this.getClient(id).delete();
+  // }
 
 }

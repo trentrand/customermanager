@@ -28,7 +28,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     AngularFireAuthModule
   ],
   declarations: [
-    routedComponents
+    routedComponents,
   ],
   exports: [
     routedComponents
