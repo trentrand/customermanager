@@ -13,6 +13,7 @@ import { ClientService } from './clients/client.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { PetFormComponent } from './pets/pet-form/pet-form.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   ],
   declarations: [
     routedComponents,
+    PetFormComponent
   ],
   exports: [
     routedComponents

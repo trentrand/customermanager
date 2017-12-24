@@ -14,9 +14,7 @@ import { ClientData } from '@cms/clients/client';
 })
 export class ClientFormComponent implements OnChanges, OnInit {
   params: any
-
   editMode: boolean
-  editIndex?: number
 
   @Input()
   client: ClientData;
@@ -108,14 +106,6 @@ export class ClientFormComponent implements OnChanges, OnInit {
       bandana: new FormControl(),
       notes: new FormControl()
     })
-  }
-
-  // Setup pet from and patch pet at index
-  editPetAtIndex = (index: number) => {
-    this.editIndex = index
-
-    let petAtIndex = this.pets.value[index]
-    this.petForm.patchValue(petAtIndex)
   }
 
   // Patch Pets FormArray with pets data
