@@ -44,8 +44,7 @@ export class ClientService {
     return this.clientDocument.update(data)
   }
 
-  // deleteClient(id: string) {
-  //   return this.getClient(id).delete();
-  // }
-
+  deleteClient(data: ClientData) {
+    return this.clientDocument.delete()
+  }
 }

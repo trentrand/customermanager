@@ -7,6 +7,7 @@
     <div class="d-flex justify-content-between">
       <a class="lead">{{editMode ? 'Edit' : 'Create New'}} Client</a>
       <div *ngIf="editMode && client">
+        <button (click)="deleteClient(client)" class="ml-1 btn btn-outline-danger"><i class="fa fa-trash mr-1"></i>Delete</button>
         <button (click)="togglePin()" class="btn {{client.pinned ? 'btn-primary' : 'btn-outline-primary'}}"><i class="fa fa-thumb-tack mr-1"></i>{{client.pinned ? 'Unpin' : 'Pin'}}</button>
       </div>
     </div>

@@ -86,7 +86,7 @@ export class ClientFormComponent implements OnChanges, OnInit {
     })
   }
 
-  // Create new Client Record
+  // Create new Client document
   createClient = (client: ClientData) => {
     let id = this.clientService.create(client)
     .then(docRef => {
@@ -95,6 +95,16 @@ export class ClientFormComponent implements OnChanges, OnInit {
     })
   }
 
+  // Delete currently-edited Client document
+  deleteClient = (client: ClientData) => {
+    if (!this.editMode) return
+    if (confirm(`Are you sure you want to delete this client?`)) {
+      this.clientService.deleteClient(client)
+      .then(() => {
+        this.router.navigate(['/clients'])
+      })
+    }
+  }
 
   // Toggle "pin" field and save client
   togglePin = () => {
