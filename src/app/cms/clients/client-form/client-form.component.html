@@ -100,7 +100,70 @@
         <span>No Pets</span>
       </div>
     </div>
-    <pet-form [form]="petForm" [pets]="pets"></pet-form>
+    <form [formGroup]="petForm" class="list-group list-group-flush" novalidate>
+      <ng-container *ngIf="!petForm.disabled">
+        <div class="list-group-item justify-content-between">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="name" class="form-label">Name</label>
+              <input class="form-control" name="name" formControlName="name">
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="age" class="form-label">Age</label>
+              <input class="form-control" name="age" formControlName="age">
+            </div>
+            <div class="form-group col-sm-3">
+              <div class="dynamic-field form-select">
+                <label for="sex" class="form-label">Sex</label>
+                <select class="form-control" name="sex" formControlName="sex">
+                  <option value="">Choose...</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-sm-6">
+              <label for="breed" class="form-label">Breed</label>
+              <input class="form-control" name="breed" formControlName="breed">
+            </div>
+            <div class="form-group col-sm-6">
+              <label class="form-label">Accessories</label>
+              <div class="form-group">
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label ml-3 mr-5">
+                    <input class="form-check-input" type="checkbox" formControlName="bow"> Bows
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" formControlName="bandana"> Bandana
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="notes" class="form-label">Notes</label>
+              <textarea class="form-control mb-1" name="notes" formControlName="notes" lines="2"></textarea>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngFor="let pet of pets.value; let i=index">
+        <a class="list-group-item d-flex w-100 justify-content-between">
+          <div>
+            <h6 class="mb-0">{{pet.name}}</h6>
+            <small class="text-muted">{{pet.sex}}</small>
+          </div>
+          <button class="btn btn-primary" role="button" (click)="editPetAtIndex(i)">
+            <i class="fa fa-edit"></i>
+          </button>
+        </a>
+      </ng-container>
+    </form>
   </div>
   <br />
   <pre>Client value: {{ client | json }}</pre>
