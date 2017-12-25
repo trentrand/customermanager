@@ -95,6 +95,16 @@ export class ClientFormComponent implements OnChanges, OnInit {
     })
   }
 
+
+  // Toggle "pin" field and save client
+  togglePin = () => {
+    this.client.pinned = !this.client.pinned
+    return this.clientService.updateClient(this.client)
+    .then((docRef) => {
+      console.log("Document updated", docRef);
+    })
+  }
+
   // Setup pet form
  createPetForm = () => {
    this.petForm = this.fb.group({

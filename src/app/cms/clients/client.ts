@@ -19,5 +19,6 @@ export interface ClientData {
     bow?: Boolean
     bandana?: Boolean
     notes?: string
-  }]
+  }],
+  pinned: boolean
 }
