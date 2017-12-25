@@ -11,7 +11,7 @@
       <ul class="nav justify-content-start">
         <div>
           <p class="mb-0">
-            {{editMode ? 'New Client' : 'Edit Client'}}
+            {{editMode ? 'Edit Client' : 'New Client'}}
           </p>
         </div>
         <div class="ml-auto">
@@ -86,22 +86,24 @@
         <!-- New Mode Buttons -->
         <ng-container *ngIf="petForm && !petForm.disabled">
           <div class="ml-auto">
+            <button class="btn btn-danger" role="button" *ngIf="editIndex > -1" (click)="deletePetAtIndex(editIndex)">
+              Delete
+            </button>
             <button class="btn btn-warning" role="button" (click)="disableAndResetForm(petForm)">
               Cancel
             </button>
             <button type="submit" (click)="createPet(petForm)" [disabled]="petForm.pristine || !petForm.valid" class="btn btn-success"><i class="fa fa-save mr-1"></i>Save</button>
           </div>
         </ng-container>
-
       </ul>
     </div>
-    <div class="d-flex justify-content-center" *ngIf="(this.petForm.disabled && pets.value.length == 0)">
+    <div class="d-flex justify-content-center" *ngIf="(petForm.disabled && pets.value.length == 0)">
       <div class="my-3" role="group">
         <span>No Pets</span>
       </div>
     </div>
     <form [formGroup]="petForm" class="list-group list-group-flush" novalidate>
-      <ng-container *ngIf="!petForm.disabled">
+      <ng-container *ngIf="!petForm.disabled && editIndex < 0">
         <div class="list-group-item justify-content-between">
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -153,15 +155,68 @@
         </div>
       </ng-container>
       <ng-container *ngFor="let pet of pets.value; let i=index">
-        <a class="list-group-item d-flex w-100 justify-content-between">
-          <div>
-            <h6 class="mb-0">{{pet.name}}</h6>
-            <small class="text-muted">{{pet.sex}}</small>
+        <ng-container *ngIf="editIndex !== i">
+          <a class="list-group-item d-flex w-100 justify-content-between">
+            <div>
+              <h6 class="mb-0">{{pet.name}}</h6>
+              <small class="text-muted">{{pet.sex}}</small>
+            </div>
+            <button class="btn btn-primary" role="button" (click)="editPetAtIndex(i)">
+              <i class="fa fa-edit"></i>
+            </button>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="editIndex === i">
+          <div class="list-group-item justify-content-between">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="name" class="form-label">Name</label>
+                <input class="form-control" name="name" formControlName="name">
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="age" class="form-label">Age</label>
+                <input class="form-control" name="age" formControlName="age">
+              </div>
+              <div class="form-group col-sm-3">
+                <div class="dynamic-field form-select">
+                  <label for="sex" class="form-label">Sex</label>
+                  <select class="form-control" name="sex" formControlName="sex">
+                    <option value="">Choose...</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label for="breed" class="form-label">Breed</label>
+                <input class="form-control" name="breed" formControlName="breed">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="form-label">Accessories</label>
+                <div class="form-group">
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label ml-3 mr-5">
+                      <input class="form-check-input" type="checkbox" formControlName="bow"> Bows
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" formControlName="bandana"> Bandana
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="notes" class="form-label">Notes</label>
+                <textarea class="form-control mb-1" name="notes" formControlName="notes" lines="2"></textarea>
+              </div>
+            </div>
           </div>
-          <button class="btn btn-primary" role="button" (click)="editPetAtIndex(i)">
-            <i class="fa fa-edit"></i>
-          </button>
-        </a>
+        </ng-container>
       </ng-container>
     </form>
   </div>

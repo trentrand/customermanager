@@ -96,26 +96,37 @@ export class ClientFormComponent implements OnChanges, OnInit {
   }
 
   // Setup pet form
-  createPetForm = () => {
-    this.petForm = this.fb.group({
-      name: new FormControl('', [
-        Validators.required
-      ]),
-      breed: new FormControl(),
-      age: new FormControl(),
-      sex: new FormControl(),
-      bow: new FormControl(),
-      bandana: new FormControl(),
-      notes: new FormControl()
-    })
-  }
+ createPetForm = () => {
+   this.petForm = this.fb.group({
+     name: new FormControl('', [
+       Validators.required
+     ]),
+     breed: new FormControl(),
+     age: new FormControl(),
+     sex: new FormControl(),
+     bow: new FormControl(),
+     bandana: new FormControl(),
+     notes: new FormControl()
+   })
+   this.editIndex = -1
+ }
 
-  // Setup pet from and patch pet at index
+  // Setup pet form and patch pet at index
   editPetAtIndex = (index: number) => {
     this.editIndex = index
-
     let petAtIndex = this.pets.value[index]
     this.petForm.patchValue(petAtIndex)
+    this.petForm.enable()
+  }
+
+  // Remove pet at index and close form
+  deletePetAtIndex = (index: number) => {
+    this.editIndex = undefined
+    this.pets.removeAt(index)
+    if (this.editMode) {
+      this.saveClient(this.clientForm.value)
+    }
+    this.disableAndResetForm(this.petForm)
   }
 
   // Patch Pets FormArray with pets data
@@ -139,7 +150,11 @@ export class ClientFormComponent implements OnChanges, OnInit {
   // If edit mode, automatically save the Client Record
   createPet = (form: FormGroup) => {
     const newPet = form.value
-    this.pets.value.push(newPet)
+    if (this.editIndex < 0) {
+      this.pets.value.push(newPet)
+    } else {
+      this.pets.value[this.editIndex] = newPet
+    }
     if (this.editMode) {
       this.saveClient(this.clientForm.value)
     }
@@ -149,6 +164,7 @@ export class ClientFormComponent implements OnChanges, OnInit {
   /* Form Helpers */
   disableAndResetForm = (form: FormArray | FormGroup, toValue?: any) => {
     form.disable()
+    this.editIndex = undefined
     if (toValue && form instanceof FormArray) {
       form.patchValue(toValue)
     } else form.reset()
