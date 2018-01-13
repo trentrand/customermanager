@@ -3,8 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ClientsComponent } from '@cms/clients/clients.component';
 import { ClientFormComponent } from '@cms/clients/client-form/client-form.component';
+import { DashboardComponent } from '@cms/clients/dashboard/dashboard.component';
 
 const routes: Routes = [
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
   {
     path: 'clients',
     component: ClientsComponent
@@ -33,5 +38,6 @@ export class CmsRoutingModule { }
 
 export const routedComponents = [
   ClientsComponent,
+  DashboardComponent,
   ClientFormComponent
 ];
