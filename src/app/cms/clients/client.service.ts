@@ -10,11 +10,17 @@ import { ClientData } from '@cms/clients/client';
 export class ClientService {
   private basePath: string = '/clients';
 
+  defaultClientsCollection: AngularFirestoreCollection<ClientData>;
+  pinnedClientsCollection: AngularFirestoreCollection<ClientData>;
+
   clientsCollection: AngularFirestoreCollection<ClientData>;
   clientDocument: AngularFirestoreDocument<ClientData>;
 
   constructor(private afs: AngularFirestore) {
-    this.clientsCollection = this.afs.collection('clients', (ref) => ref.orderBy('last_name', 'desc'));
+    this.defaultClientsCollection = this.afs.collection('clients', (ref) => ref.orderBy('last_name'));
+    this.pinnedClientsCollection = this.afs.collection('clients', (ref) => ref.where('pinned', '==', true).orderBy('last_name'));
+
+    this.clientsCollection = this.defaultClientsCollection
   }
 
   getData(): Observable<ClientData[]> {
@@ -22,6 +28,18 @@ export class ClientService {
   }
 
   getSnapshot(): Observable<ClientData[]> {
+    this.clientsCollection = this.defaultClientsCollection
+    return this.clientsCollection.snapshotChanges().map((actions) => {
+      return actions.map((a) => {
+        const data = a.payload.doc.data() as ClientData;
+        data['id'] = a.payload.doc.id
+        return data
+      })
+    })
+  }
+
+  getPinnedSnapshot(): Observable<ClientData[]> {
+    this.clientsCollection = this.pinnedClientsCollection
     return this.clientsCollection.snapshotChanges().map((actions) => {
       return actions.map((a) => {
         const data = a.payload.doc.data() as ClientData;
