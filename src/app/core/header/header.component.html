@@ -1,12 +1,22 @@
-<nav class="navbar navbar-expand-lg navbar-toggleable-md fixed-top navbar-dark bg-primary">
-  <button class="navbar-toggler hidden-sm-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-controls="collapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+  <a class="navbar-brand" href="#"><i class="{{ portalIcon }}" aria-disabled="true"></i> {{title}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" routerLink="home"><i class="{{ portalIcon }}" aria-disabled="true"></i> {{title}}</a>
-  <!-- <div [ngbCollapse]="!isNavbarCollapsed" class="collapse navbar-collapse" id="collapsingNavbar">
-    <ul class="navbar-nav mr-auto" *ngIf="authorized">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto" *ngIf="authenticated">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/clients" routerLinkActive="active">Clients</a>
+      </li>
     </ul>
-    <ul class="navbar-nav ml-auto" *ngIf="!authorized">
+    <ul class="navbar-nav" *ngIf="authenticated">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Logout</a>
+      </li>
     </ul>
-  </div> -->
+  </div>
 </nav>

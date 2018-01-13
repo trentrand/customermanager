@@ -49,4 +49,15 @@ const routes: Routes = [
 })
 export class CoreRoutingModule { }
 
-export const routedComponents = [HeaderComponent, FooterComponent, HomeComponent, LoginComponent, LogoutComponent, ChangePasswordComponent, ForgotPasswordComponent, BadRequestComponent, ForbiddenComponent, NotFoundComponent];
+export const routedComponents = [
+  HeaderComponent,
+  FooterComponent,
+  HomeComponent,
+  LoginComponent,
+  LogoutComponent,
+  ChangePasswordComponent,
+  ForgotPasswordComponent,
+  BadRequestComponent,
+  ForbiddenComponent,
+  NotFoundComponent
+];

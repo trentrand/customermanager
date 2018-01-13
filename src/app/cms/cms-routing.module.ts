@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ClientsComponent } from './clients/clients.component';
+import { ClientsComponent } from '@cms/clients/clients.component';
 import { ClientFormComponent } from '@cms/clients/client-form/client-form.component';
 
 const routes: Routes = [
@@ -31,4 +31,7 @@ const routes: Routes = [
 })
 export class CmsRoutingModule { }
 
-export const routedComponents = [ ClientsComponent, ClientFormComponent ];
+export const routedComponents = [
+  ClientsComponent,
+  ClientFormComponent
+];

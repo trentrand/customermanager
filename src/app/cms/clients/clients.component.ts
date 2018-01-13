@@ -43,6 +43,7 @@ export class ClientsComponent implements OnInit {
      })
 
     this.listItems = this.clientService.getSnapshot();
+
     //  this.route.data.subscribe(snapshot => {
     //   if (snapshot['clients']) {
     //     this.listItems = snapshot['clients']
