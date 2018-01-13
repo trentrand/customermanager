@@ -24,6 +24,8 @@ export class ClientFormComponent implements OnChanges, OnInit {
   clientForm: FormGroup
   petForm: FormGroup
 
+  devPreviewCollapsed: boolean = true
+
   constructor(
     private fb: FormBuilder,
     private clientService: ClientService,
