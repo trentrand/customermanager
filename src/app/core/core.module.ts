@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoreRoutingModule, routedComponents } from './core-routing.module';
+import { AuthService } from './auth.service';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { CoreRoutingModule, routedComponents } from './core-routing.module';
     routedComponents
   ],
   providers: [
+    AuthService
   ]
 })
 export class CoreModule {

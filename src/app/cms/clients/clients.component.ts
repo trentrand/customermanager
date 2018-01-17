@@ -22,11 +22,11 @@ export class ClientsComponent implements OnInit {
    // Filtering and ordering parameters
    searchFilter: string = '';
    orderByProperty: string = '';
+   alphabet: string[] = "abcdefghijklmnopqrstuvwxyz".split('')
 
    // Pagination parameters
    count: number;
    page: number;
-   limit: number;
    maxSize: number;
    params: any;
 
@@ -38,28 +38,17 @@ export class ClientsComponent implements OnInit {
      this.route.params.subscribe((params: Params) => {
       this.params = params
       this.setSearchFilter(params['search'])
-      this.setLimitFilter(params['limit']);
+      this.setAlphaFilter(params['letter'])
       this.setOrderProperty(params['order'])
      })
 
-    this.listItems = this.clientService.getSnapshot();
-
-    //  this.route.data.subscribe(snapshot => {
-    //   if (snapshot['clients']) {
-    //     this.listItems = snapshot['clients']
-    //     this.count = this.listItems.length
-    //     console.log(this.listItems)
-    //     // this.config.page = snapshot['clients'].page
-    //     // this.config.limit = snapshot['clients'].limit
-    //   }
-    // })
+    this.listItems = this.clientService.getSnapshot(this.params.letter);
    }
    createNewItem = () => {
      this.router.navigate(['/client/new'])
    }
 
    listItemClicked = (id: any) => {
-     console.log(id)
      this.router.navigate(['/client', id])
    }
 
@@ -92,6 +81,14 @@ export class ClientsComponent implements OnInit {
      }
    }
 
+   setAlphaFilter = (letter: string) => {
+     if (letter !== undefined && this.alphabet.indexOf(letter) > -1) {
+       this.listItems = this.clientService.getSnapshot(this.params.letter);
+       console.log(this.params.letter)
+       this.updateParam('letter', letter)
+     }
+   }
+
    setOrderProperty = (orderByProperty: string) => {
      if (orderByProperty) {
        var validSortProperty = this.orderByOptions.filter((property) => {
@@ -100,11 +97,6 @@ export class ClientsComponent implements OnInit {
      }
      if (validSortProperty) this.orderByProperty = orderByProperty
      else this.orderByProperty = this.defaultOrderByProperty
-   }
-
-   setLimitFilter = (limit: number) => {
-     if (limit) this.limit = limit
-     else this.limit = 10
    }
 
    pageChanged = () => {

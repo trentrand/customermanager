@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listItems = this.clientService.getPinnedSnapshot();
+    this.listItems = this.clientService.getSnapshot(undefined, true);
   }
 
   listItemClicked = (id: any) => {
