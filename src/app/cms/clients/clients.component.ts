@@ -22,7 +22,7 @@ export class ClientsComponent implements OnInit {
    // Filtering and ordering parameters
    searchFilter: string = '';
    orderByProperty: string = '';
-   alphabet: string[] = "abcdefghijklmnopqrstuvwxyz".split('')
+   alphabet: string[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('')
 
    // Pagination parameters
    count: number;
@@ -84,9 +84,8 @@ export class ClientsComponent implements OnInit {
    setAlphaFilter = (letter: string) => {
      if (letter !== undefined && this.alphabet.indexOf(letter) > -1) {
        this.listItems = this.clientService.getSnapshot(this.params.letter);
-       console.log(this.params.letter)
-       this.updateParam('letter', letter)
-     }
+       this.updateParam('letter', letter);
+     } else this.updateParam('letter', 'A');
    }
 
    setOrderProperty = (orderByProperty: string) => {
@@ -100,6 +99,16 @@ export class ClientsComponent implements OnInit {
    }
 
    pageChanged = () => {
-     this.updateParam('page', this.page)
+     this.updateParam('page', this.page);
+   }
+
+   togglePin = (event: any, client: ClientData) => {
+     event.stopPropagation()
+     this.clientService.getClient(client.id)
+     client.pinned = !client.pinned
+     return this.clientService.updateClient(client)
+     .then((docRef ) => {
+       console.log("Toggled Client Pin", docRef);
+     })
    }
 }

@@ -23,16 +23,7 @@ export class ClientsService {
       return query
     })
     this.clients = this.clientsCollection.valueChanges()
-    // this.clients = Observable.of(this.clientsCollection.snapshotChanges()
-    //   .map(clients => {
-    //     return clients.map(client => {
-    //       console.log(client.payload.doc.id)
-    //       const data = client.payload.doc.data()
-    //       client.id = client.payload.doc.id
-    //       return client
-    //     })
-    //   })
-    // )
+
     this.clients.subscribe(snapshot => {
       this.lastVisible = snapshot[snapshot.length-1]
     })

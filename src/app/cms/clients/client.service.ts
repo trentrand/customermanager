@@ -24,11 +24,16 @@ export class ClientService {
     return this.afs.collection('clients', ref => {
       let query: any = ref;
       if (charFilter) {
-        query = query.where('last_name', '>=', charFilter).where('last_name', '<', this.nextChar(charFilter))
+        charFilter = charFilter.toLowerCase();
+        if (charFilter === 'z') {
+          query = query.where('last_name_key', '>=', charFilter)
+        } else if (charFilter !== 'z') {
+          query = query.where('last_name_key', '>=', charFilter).where('last_name_key', '<', this.nextChar(charFilter))
+        }
       } else if (pinned) {
         query = query.where('pinned', '==', true)
       }
-      return query.orderBy('last_name');
+      return query.orderBy('last_name_key');
     }).snapshotChanges().map((actions) => {
       return actions.map((a) => {
         const data = a.payload.doc.data() as ClientData;
