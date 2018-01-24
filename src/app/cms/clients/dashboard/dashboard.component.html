@@ -15,7 +15,7 @@
           <small *ngIf="item.first_name" class="text-muted">{{item.first_name}}</small>
         </div>
         <div class="d-flex align-items-start">
-          <p>Right</p>
+          <button (click)="togglePin($event, item)" class="btn {{item.pinned ? 'btn-primary' : 'btn-outline-primary'}}"><i class="fa fa-thumb-tack mr-1"></i>{{item.pinned ? 'Unpin' : 'Pin'}}</button>
         </div>
       </div>
     </div>

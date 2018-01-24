@@ -26,4 +26,14 @@ export class DashboardComponent implements OnInit {
     console.log(id)
     this.router.navigate(['/client', id])
   }
+
+  togglePin = (event: any, client: ClientData) => {
+    event.stopPropagation()
+    this.clientService.getClient(client.id)
+    client.pinned = !client.pinned
+    return this.clientService.updateClient(client)
+    .then((docRef ) => {
+      console.log("Toggled Client Pin", docRef);
+    })
+  }
 }
