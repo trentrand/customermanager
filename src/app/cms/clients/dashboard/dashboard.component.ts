@@ -2,7 +2,6 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef }
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, ReplaySubject, Subscription } from 'rxjs/Rx';
 
-import { ClientsService } from '../clients.service';
 import { ClientService } from '../client.service';
 import { ClientData } from '../client';
 

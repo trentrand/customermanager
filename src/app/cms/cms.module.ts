@@ -7,7 +7,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CmsRoutingModule, routedComponents } from './cms-routing.module';
 
-import { ClientsService } from './clients/clients.service';
 import { ClientService } from './clients/client.service';
 
 import { AngularFireModule } from 'angularfire2';
@@ -34,7 +33,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     routedComponents
   ],
   providers: [
-    ClientsService,
     ClientService
   ]
 })
