@@ -32,8 +32,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
  - Only save Pet when clicking `Save new pet` button, not the entirety of the Client's data.
  - Separate the `pinned` property so each user has their own set of pinned clients
  - Implement search field on Clients index
- - Look into New Clients button being unresponsive?
-
+ - Show alert on incorrect password login 
 
 ## Further help
 
