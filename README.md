@@ -1,6 +1,20 @@
-# Customermanager
+# Customer Manager
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.4.
+
+## Accessing the Firebase Project Console
+This project uses Firebase for hosting the website and database.
+
+To access the Firebase console, for operations such as adding users, configuring a new domain name, or otherwise, visit the following address:
+
+ > https://console.firebase.google.com/project/customermanager-f4a7c/overview
+
+ ## Visiting the live website
+This project is hosted by Firebase, and can be visited at the following default address:
+
+> https://customermanager-f4a7c.firebaseapp.com
+
+_Additional domain names can be linked to the live website by configuring the settings on the Firebase Project Console (see above)._
 
 ## Development server
 
