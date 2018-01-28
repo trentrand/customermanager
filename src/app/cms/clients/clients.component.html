@@ -10,11 +10,10 @@
       <ul class="nav justify-content-start">
         <form class="form-inline my-2 my-lg-0">
           <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search Clients" aria-label="Search Clients" [(ngModel)]="searchFilter" (keyup.enter)="updateParam('search', searchFilter)" (keyup)="searchChanged($event)" name="search" placement="top" ngbTooltip="Not yet available..."
-              disabled>
+            <input class="form-control" type="text" placeholder="Search Clients" aria-label="Search Clients" [(ngModel)]="searchFilter" (keyup.enter)="updateParam('search', searchFilter)" (keyup)="searchChanged($event)" name="search">
             <span class="input-group-btn">
-              <button class="btn btn-primary disabled" type="button" (click)="updateParam('search', searchFilter)" *ngIf="showSearchButton()"><i class="fa fa-search"></i></button>
-              <button class="btn btn-primary disabled" type="button" (click)="updateParam('search', '')" *ngIf="!showSearchButton()"><i class="fa fa-times"></i></button>
+              <button class="btn btn-primary" type="button" (click)="updateParam('search', searchFilter)" *ngIf="showSearchButton()"><i class="fa fa-search"></i></button>
+              <button class="btn btn-primary" type="button" (click)="updateParam('search', '')" *ngIf="!showSearchButton()"><i class="fa fa-times"></i></button>
             </span>
           </div>
         </form>

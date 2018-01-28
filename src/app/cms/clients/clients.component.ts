@@ -79,13 +79,23 @@ export class ClientsComponent implements OnInit {
 
    updateParam = (param, value) => {
      var params = { ...this.params }
-     if (value) params[param] = value
-     else delete params[param]
+     // Add parameter to router path, unless empty
+     if (value) {
+       params[param] = value
+       if (param == 'search') {
+         delete params['letter'];
+       }
+     }
+     else {
+       delete params[param]
+     }
      this.router.navigate(['./', params], { relativeTo: this.route })
    }
 
    setSearchFilter = (search: string) => {
-     if (search !== undefined && search.length > 0) this.searchFilter = search;
+     if (search !== undefined && search.length > 0) {
+       this.searchFilter = search;
+      }
      else this.searchFilter = '';
    }
 
@@ -99,7 +109,9 @@ export class ClientsComponent implements OnInit {
      if (letter !== undefined && this.alphabet.indexOf(letter) > -1) {
        this.listItems = this.clientService.getSnapshot(this.params.letter);
        this.updateParam('letter', letter);
-     } else this.updateParam('letter', 'A');
+     } else if (!this.searchFilter) {
+       this.updateParam('letter', 'A');
+     }
    }
 
    setOrderProperty = (orderByProperty: string) => {
