@@ -1,9 +1,8 @@
 <div class="container">
+  <p class="alerts-panel" *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+  </p>
   <div class="portal-header">
-    <div class="portal-logo">
-      <!-- <img src="./assets/img/client-logo.png" alt="Client Form Logo" /> -->
-    </div>
-    <br>
     <div class="d-flex justify-content-between">
       <a class="lead">{{editMode ? 'Edit' : 'Create New'}} Client</a>
       <div *ngIf="editMode && client">
@@ -28,19 +27,19 @@
       <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="first_name" class="form-label">First Name</label>
+            <label for="first_name" class="form-label required">First Name</label>
             <input class="form-control" name="first_name" formControlName="first_name">
-            <div *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)" class="invalid-feedback">
-              <div *ngIf="first_name.errors.required">
+            <div *ngIf="first_name.invalid && first_name.touched" class="help-block text-danger">
+              <div *ngIf="first_name.errors?.required">
                 First Name is required.
               </div>
             </div>
           </div>
           <div class="form-group col-md-6">
-            <label for="last_name" class="form-label">Last Name</label>
+            <label for="last_name" class="form-label required">Last Name</label>
             <input class="form-control" name="last_name" formControlName="last_name">
-            <div *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)" class="invalid-feedback">
-              <div *ngIf="last_name.errors.required">
+            <div *ngIf="last_name.invalid && last_name.touched" class="help-block text-danger">
+              <div *ngIf="last_name.errors?.required">
                 Last Name is required.
               </div>
             </div>

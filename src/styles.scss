@@ -5,3 +5,11 @@
 body {
   padding-top: 80px;
 }
+
+.portal-header {
+  @extend .pt-4;
+}
+
+.required:after {
+    content: "*";
+}

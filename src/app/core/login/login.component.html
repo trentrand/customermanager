@@ -1,8 +1,8 @@
 <div class="container">
   <form class="col-sm-6 form-signin" [formGroup]="userForm" (ngSubmit)="login()">
-    <div class="alert alert-danger" *ngIf="error">
-      {{ error }}
-    </div>
+    <p class="alerts-panel" *ngFor="let alert of alerts">
+      <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
     <h2 class="form-signin-heading">Please sign in</h2>
 
     <label for="email">Email</label>

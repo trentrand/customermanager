@@ -5,6 +5,7 @@ import { Observable, ReplaySubject, Subscription } from 'rxjs/Rx';
 import { ClientsService } from './clients.service';
 import { ClientService } from './client.service';
 import { ClientData } from './client';
+import { IAlert } from '@core/ialert';
 
 @Component({
   selector: 'app-clients',
@@ -12,6 +13,8 @@ import { ClientData } from './client';
   styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
+  queryParams: any
+
    // Data to be displayed as list items
    listItems: Observable<ClientData[]>
 
@@ -30,6 +33,8 @@ export class ClientsComponent implements OnInit {
    maxSize: number;
    params: any;
 
+   alerts: Array<IAlert> = [];
+
    constructor(private router: Router, private route: ActivatedRoute, private ref: ChangeDetectorRef, private clientService: ClientService) {
    }
 
@@ -41,8 +46,18 @@ export class ClientsComponent implements OnInit {
       this.setAlphaFilter(params['letter'])
       this.setOrderProperty(params['order'])
      })
+     this.route.queryParams.subscribe((queryParams: Params) => {
+      this.queryParams = queryParams;
+     })
 
     this.listItems = this.clientService.getSnapshot(this.params.letter);
+    // Alert that client was deleted successfully!
+    if (this.queryParams['deletedClient']) {
+      this.alerts.push({
+        type: 'success',
+        message: 'Client was successfully deleted',
+      })
+    }
    }
    createNewItem = () => {
      this.router.navigate(['/client/new'])
@@ -111,4 +126,9 @@ export class ClientsComponent implements OnInit {
        console.log("Toggled Client Pin", docRef);
      })
    }
+
+   closeAlert(alert: IAlert) {
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
 }

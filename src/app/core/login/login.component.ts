@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from '../auth.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { IAlert } from '@core/ialert';
 
 @Component({
   selector: 'core-login',
@@ -12,8 +13,9 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 export class LoginComponent implements OnInit {
   userForm: FormGroup;
   passReset: boolean = false;
-  error: any;
-  
+
+  alerts: Array<IAlert> = [];
+
   constructor(private fb: FormBuilder, private auth: AuthService) {}
 
   ngOnInit(): void {
@@ -26,6 +28,13 @@ export class LoginComponent implements OnInit {
    ).then(
      success => {
        console.log(success)
+     },
+     error => {
+       console.log(error)
+       this.alerts.push({
+         type: 'warning',
+         message: error['message']
+       })
      }
    )
   }
@@ -33,6 +42,11 @@ export class LoginComponent implements OnInit {
   resetPassword() {
    this.auth.resetPassword(this.userForm.value['email'])
    .then(() => this.passReset = true)
+
+   this.alerts.push({
+     type: 'success',
+     message: 'Password reset email sent',
+   })
   }
 
   buildForm(): void {
@@ -67,6 +81,11 @@ export class LoginComponent implements OnInit {
        }
      }
    }
+  }
+
+  closeAlert(alert: IAlert) {
+   const index: number = this.alerts.indexOf(alert);
+   this.alerts.splice(index, 1);
   }
 
   formErrors = {

@@ -45,7 +45,9 @@ export class AuthService {
         this.router.navigate(['/home']);
         return this.updateUserData(user);
       })
-      .catch((error) => this.handleError(error) );
+      .catch((error) => {
+        this.handleError(error)
+      });
   }
 
   resetPassword(email: string) {
@@ -63,7 +65,8 @@ export class AuthService {
   }
 
   private handleError(error: Error) {
-    console.error(error);
+    console.log(error);
+    throw error
   }
 
   private updateUserData(user: User) {

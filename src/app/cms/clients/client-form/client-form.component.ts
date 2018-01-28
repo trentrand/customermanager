@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { ClientService } from '@cms/clients/client.service';
 import { ClientData } from '@cms/clients/client';
-
+import { IAlert } from '@core/ialert';
 
 @Component({
   selector: 'app-client-form',
@@ -14,6 +14,7 @@ import { ClientData } from '@cms/clients/client';
 })
 export class ClientFormComponent implements OnChanges, OnInit {
   params: any
+  queryParams: any
 
   editMode: boolean
   editIndex?: number
@@ -25,6 +26,7 @@ export class ClientFormComponent implements OnChanges, OnInit {
   petForm: FormGroup
 
   devPreviewCollapsed: boolean = true
+  alerts: Array<IAlert> = [];
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +43,10 @@ export class ClientFormComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.params = params
+      this.params = params;
+    })
+    this.route.queryParams.subscribe((queryParams: Params) => {
+      this.queryParams = queryParams;
     })
     this.createClientForm()
     this.createPetForm()
@@ -57,6 +62,13 @@ export class ClientFormComponent implements OnChanges, OnInit {
           console.log('An error occured: ', error)
         }
       )
+    }
+    // Alert that new client was created successfully!
+    if (this.queryParams['newClient']) {
+      this.alerts.push({
+        type: 'success',
+        message: 'New client was successfully created',
+      })
     }
     this.toggleEditFields(this.editMode)
   }
@@ -84,7 +96,11 @@ export class ClientFormComponent implements OnChanges, OnInit {
   saveClient = (client: ClientData) => {
     return this.clientService.updateClient(client)
     .then((docRef) => {
-      console.log("Document updated", docRef);
+      console.log("Client Document updated", docRef);
+      this.alerts.push({
+        type: 'success',
+        message: 'Updates were successfully saved to this client',
+      })
     })
   }
 
@@ -93,7 +109,9 @@ export class ClientFormComponent implements OnChanges, OnInit {
     let id = this.clientService.create(client)
     .then(docRef => {
       console.log("Document written with ID: ", docRef.id);
-      this.router.navigate(['/client', docRef.id])
+      this.router.navigate(
+        ['/client', docRef.id], {queryParams: { newClient: true }}
+      )
     })
   }
 
@@ -103,7 +121,10 @@ export class ClientFormComponent implements OnChanges, OnInit {
     if (confirm(`Are you sure you want to delete this client?`)) {
       this.clientService.deleteClient(client)
       .then(() => {
-        this.router.navigate(['/clients'])
+        console.log("Client Document deleted");
+        this.router.navigate(
+          ['/clients'], {queryParams: { deletedClient: true }}
+        )
       })
     }
   }
@@ -222,6 +243,11 @@ export class ClientFormComponent implements OnChanges, OnInit {
       // new-only modifications
     }
   }
+
+  public closeAlert(alert: IAlert) {
+   const index: number = this.alerts.indexOf(alert);
+   this.alerts.splice(index, 1);
+ }
 
   /* Client Form interface */
   get id() { return this.clientForm.get('id') }
