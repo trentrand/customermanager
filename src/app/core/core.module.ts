@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoreRoutingModule, routedComponents } from './core-routing.module';
 import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { AuthService } from './auth.service';
     routedComponents
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard
   ]
 })
 export class CoreModule {

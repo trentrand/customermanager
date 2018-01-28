@@ -5,7 +5,7 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto" *ngIf="authenticated">
+    <ul class="navbar-nav mr-auto" *ngIf="auth.user | async">
       <li class="nav-item">
         <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
       </li>
@@ -13,9 +13,9 @@
         <a class="nav-link" routerLink="/clients" routerLinkActive="active">Clients</a>
       </li>
     </ul>
-    <ul class="navbar-nav" *ngIf="authenticated">
+    <ul class="navbar-nav" *ngIf="auth.user | async">
       <li class="nav-item">
-        <a class="nav-link" href="#">Logout</a>
+        <a class="nav-link" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>

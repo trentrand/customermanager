@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@environments/environment';
+import { AuthService } from '@core/auth.service';
 
 @Component({
   selector: 'core-home',
@@ -12,11 +13,9 @@ export class HomeComponent implements OnInit {
   description: string;
   getStartedRoute: string;
   registerButton: boolean;
-  authorized: boolean;
 
-  constructor(private titleService: Title) {
+  constructor(private titleService: Title, private auth: AuthService) {
     this.getStartedRoute = '/dashboard'
-    this.authorized = false
     this.title = this.titleService.getTitle()
     this.description = environment.description
   }

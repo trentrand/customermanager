@@ -11,8 +11,8 @@
     <div class="list-group list-group-flush">
       <div class="list-group-item list-group-item-action d-flex justify-content-between" *ngFor="let item of items" (click)="listItemClicked(item.id)">
         <div>
-          <span>{{item.first_name}}</span><br>
-          <small *ngIf="item.first_name" class="text-muted">{{item.first_name}}</small>
+          <span>{{item.first_name}} {{item.last_name}}</span><br>
+          <small *ngIf="item.first_name" class="text-muted">{{item.primary_phone}}</small>
         </div>
         <div class="d-flex align-items-start">
           <button (click)="togglePin($event, item)" class="btn {{item.pinned ? 'btn-primary' : 'btn-outline-primary'}}"><i class="fa fa-thumb-tack mr-1"></i>{{item.pinned ? 'Unpin' : 'Pin'}}</button>

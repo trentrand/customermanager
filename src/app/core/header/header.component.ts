@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from '@core/auth.service';
 
 @Component({
   selector: 'core-header',
@@ -14,11 +15,8 @@ export class HeaderComponent implements OnInit {
   currentRoute: any
   isNavbarCollapsed: boolean
 
-  authenticated: boolean
-
-  constructor(private titleService: Title, private route: ActivatedRoute) {
+  constructor(private titleService: Title, private route: ActivatedRoute, private auth: AuthService) {
     this.title = this.titleService.getTitle()
-    this.authenticated = true
   }
 
   ngOnInit(): void {
@@ -30,5 +28,9 @@ export class HeaderComponent implements OnInit {
   public isActive = (item: any) => {
       this.currentRoute = this.getCurrentRoute();
       return this.currentRoute === item.route || this.currentRoute === item.route.slice(0, -1);
+  }
+
+  public logout = () => {
+    this.auth.signOut()
   }
 }

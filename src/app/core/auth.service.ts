@@ -42,6 +42,7 @@ export class AuthService {
   emailLogin(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
+        this.router.navigate(['/home']);
         return this.updateUserData(user);
       })
       .catch((error) => this.handleError(error) );
@@ -57,7 +58,7 @@ export class AuthService {
 
   signOut() {
     this.afAuth.auth.signOut().then(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/logout']);
     });
   }
 

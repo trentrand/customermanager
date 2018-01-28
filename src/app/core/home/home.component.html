@@ -1,8 +1,8 @@
 <div class="container col-sm-10">
-  <div class="jumbotron pt-3 pb-5 text-center">
+  <div class="jumbotron pt-5 pb-5 text-center">
     <h1 class="portal-logo"><i class="fa fa-paw"></i></h1>
-    <p class="lead mt-3 mb-4">{{description}}</p>
-    <a class="btn btn-lg btn-success" *ngIf="authorized" [routerLink]="getStartedRoute" role="button"><i class="fa fa-chevron-circle-right"></i> Get Started</a>
-    <a class="btn btn-lg btn-primary" *ngIf="!authorized" routerLink="/login" role="button"><i class="fa fa-chevron-circle-right"></i> Login</a>
+    <p class="lead mt-3 mb-5">{{description}}</p>
+    <a class="btn btn-lg btn-success" *ngIf="auth.user | async;" [routerLink]="getStartedRoute" role="button"><i class="fa fa-chevron-circle-right"></i> Get Started</a>
+    <a class="btn btn-lg btn-primary" *ngIf="!auth.user | async;" routerLink="/login" role="button"><i class="fa fa-chevron-circle-right"></i> Login</a>
   </div>
 </div>

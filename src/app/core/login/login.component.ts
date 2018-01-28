@@ -20,7 +20,13 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-   this.auth.emailLogin(this.userForm.value['email'], this.userForm.value['password'])
+   this.auth.emailLogin(
+     this.userForm.value['email'], this.userForm.value['password']
+   ).then(
+     success => {
+       console.log(success)
+     }
+   )
   }
 
   resetPassword() {
