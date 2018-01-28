@@ -4,8 +4,9 @@ export interface ClientDataId extends ClientData {
 
 export interface ClientData {
   id: string
-  first_name?: string
-  last_name?: string
+  first_name: string
+  last_name: string
+  last_name_key: string
   address?: string
   primary_phone?: string
   secondary_phone?: string

@@ -50,15 +50,22 @@ export class ClientService {
   }
 
   create(data: ClientData) {
+    data = this.updateKey(data);
     return this.clientsCollection.add(data)
   }
 
   updateClient(data: ClientData) {
+    data = this.updateKey(data);
     return this.clientDocument.update(data)
   }
 
   deleteClient(data: ClientData) {
     return this.clientDocument.delete()
+  }
+  
+  updateKey(data: ClientData) {
+    data.last_name_key = data.last_name.toLowerCase();
+    return data
   }
 
   nextChar(c: string) {
