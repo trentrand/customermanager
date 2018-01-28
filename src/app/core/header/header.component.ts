@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   currentRoute: any
   isNavbarCollapsed: boolean
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private auth: AuthService) {
+  constructor(private titleService: Title, private route: ActivatedRoute, public auth: AuthService) {
     this.title = this.titleService.getTitle()
   }
 

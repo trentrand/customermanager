@@ -12,7 +12,8 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 export class LoginComponent implements OnInit {
   userForm: FormGroup;
   passReset: boolean = false;
-
+  error: any;
+  
   constructor(private fb: FormBuilder, private auth: AuthService) {}
 
   ngOnInit(): void {

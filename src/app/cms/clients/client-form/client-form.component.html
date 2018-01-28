@@ -221,9 +221,8 @@
       </ng-container>
     </form>
   </div>
-  <p class="pt-2">
-    <button type="button" class="btn btn-link" (click)="devPreviewCollapsed = !devPreviewCollapsed"
-            [attr.aria-expanded]="!devPreviewCollapsed" aria-controls="devPreview">
+  <p class="pt-2" *ngIf='false'>
+    <button type="button" class="btn btn-link" (click)="devPreviewCollapsed = !devPreviewCollapsed" [attr.aria-expanded]="!devPreviewCollapsed" aria-controls="devPreview">
       <i class="fa fa-eye mr-1"></i>Developer Preview
     </button>
   </p>

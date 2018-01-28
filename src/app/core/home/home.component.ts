@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   getStartedRoute: string;
   registerButton: boolean;
 
-  constructor(private titleService: Title, private auth: AuthService) {
+  constructor(private titleService: Title, public auth: AuthService) {
     this.getStartedRoute = '/dashboard'
     this.title = this.titleService.getTitle()
     this.description = environment.description
