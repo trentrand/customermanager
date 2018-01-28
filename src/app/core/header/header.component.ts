@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   title: string
   portalIcon = 'fa fa-paw'
   currentRoute: any
-  isNavbarCollapsed: boolean
+  isCollapsed: boolean = true;
 
   constructor(private titleService: Title, private route: ActivatedRoute, public auth: AuthService) {
     this.title = this.titleService.getTitle()
@@ -21,6 +21,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  toggleCollapsed(): void {
+    this.isCollapsed = !this.isCollapsed;
   }
 
   public getCurrentRoute = () => this.route.snapshot.url;
