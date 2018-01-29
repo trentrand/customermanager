@@ -12,7 +12,7 @@ import { ClientData } from '../client';
 })
 export class DashboardComponent implements OnInit {
   // Data to be displayed as list items
-  listItems: Observable<ClientData[]>
+  listItems: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private ref: ChangeDetectorRef, private clientService: ClientService) {
   }
