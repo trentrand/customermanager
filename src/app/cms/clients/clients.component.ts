@@ -44,12 +44,22 @@ export class ClientsComponent implements OnInit {
       this.setSearchFilter(params['search'])
       this.setAlphaFilter(params['letter'])
       this.setOrderProperty(params['order'])
+
+      // Fetch client list items based on active filter
+      let activeFilter;
+      if (this.params['search']) {
+        activeFilter = this.params['search'];
+      } else if (this.params['letter']) {
+        activeFilter = this.params['letter'];
+      } else activeFilter = 'a';
+
+      this.listItems = this.clientService.getSnapshot(activeFilter);
      })
+
      this.route.queryParams.subscribe((queryParams: Params) => {
       this.queryParams = queryParams;
      })
 
-    this.listItems = this.clientService.getSnapshot(this.params.letter);
     // Alert that client was deleted successfully!
     if (this.queryParams['deletedClient']) {
       this.alerts.push({
@@ -64,6 +74,10 @@ export class ClientsComponent implements OnInit {
 
    listItemClicked = (id: any) => {
      this.router.navigate(['/client', id])
+   }
+
+   searchFilterActive = () => {
+     return this.params['search'] !== undefined
    }
 
    getSearchPrompt = () => {
