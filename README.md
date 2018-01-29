@@ -30,7 +30,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## TODO
  - Separate the `pinned` property so each user has their own set of pinned clients
- - Implement search field on Clients index
 
 ## Further help
 
