@@ -19,12 +19,12 @@ describe('ChangePasswordComponent', () => {
         ReactiveFormsModule,
         HttpClientModule
       ],
-      declarations: [ ChangePasswordComponent ],
+      declarations: [ChangePasswordComponent],
       providers: [
-        {provide: APP_BASE_HREF, useValue : '/' }
+        { provide: APP_BASE_HREF, useValue: '/' }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

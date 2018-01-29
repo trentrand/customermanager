@@ -95,24 +95,24 @@ export class ClientFormComponent implements OnChanges, OnInit {
   // Save changes to currently-edited Client Record
   saveClient = (client: ClientData) => {
     return this.clientService.updateClient(client)
-    .then((docRef) => {
-      console.log("Client Document updated", docRef);
-      this.alerts.push({
-        type: 'success',
-        message: 'Updates were successfully saved to this client',
+      .then((docRef) => {
+        console.log("Client Document updated", docRef);
+        this.alerts.push({
+          type: 'success',
+          message: 'Updates were successfully saved to this client',
+        })
       })
-    })
   }
 
   // Create new Client document
   createClient = (client: ClientData) => {
     let id = this.clientService.create(client)
-    .then(docRef => {
-      console.log("Document written with ID: ", docRef.id);
-      this.router.navigate(
-        ['/client', docRef.id], {queryParams: { newClient: true }}
-      )
-    })
+      .then(docRef => {
+        console.log("Document written with ID: ", docRef.id);
+        this.router.navigate(
+          ['/client', docRef.id], { queryParams: { newClient: true } }
+        )
+      })
   }
 
   // Delete currently-edited Client document
@@ -120,12 +120,12 @@ export class ClientFormComponent implements OnChanges, OnInit {
     if (!this.editMode) return
     if (confirm(`Are you sure you want to delete this client?`)) {
       this.clientService.deleteClient(client)
-      .then(() => {
-        console.log("Client Document deleted");
-        this.router.navigate(
-          ['/clients'], {queryParams: { deletedClient: true }}
-        )
-      })
+        .then(() => {
+          console.log("Client Document deleted");
+          this.router.navigate(
+            ['/clients'], { queryParams: { deletedClient: true } }
+          )
+        })
     }
   }
 
@@ -133,26 +133,26 @@ export class ClientFormComponent implements OnChanges, OnInit {
   togglePin = () => {
     this.client.pinned = !this.client.pinned
     return this.clientService.updateClient(this.client)
-    .then((docRef) => {
-      console.log("Document updated", docRef);
-    })
+      .then((docRef) => {
+        console.log("Document updated", docRef);
+      })
   }
 
   // Setup pet form
- createPetForm = () => {
-   this.petForm = this.fb.group({
-     name: new FormControl('', [
-       Validators.required
-     ]),
-     breed: new FormControl(),
-     age: new FormControl(),
-     sex: new FormControl(),
-     bow: new FormControl(),
-     bandana: new FormControl(),
-     notes: new FormControl()
-   })
-   this.editIndex = -1
- }
+  createPetForm = () => {
+    this.petForm = this.fb.group({
+      name: new FormControl('', [
+        Validators.required
+      ]),
+      breed: new FormControl(),
+      age: new FormControl(),
+      sex: new FormControl(),
+      bow: new FormControl(),
+      bandana: new FormControl(),
+      notes: new FormControl()
+    })
+    this.editIndex = -1
+  }
 
   // Setup pet form and patch pet at index
   editPetAtIndex = (index: number) => {
@@ -174,7 +174,7 @@ export class ClientFormComponent implements OnChanges, OnInit {
 
   // Patch Pets FormArray with pets data
   patchPets = (pets: any[]) => {
-    let formArray = <FormArray> this.pets;
+    let formArray = <FormArray>this.pets;
     this.clearFormArray(formArray)
     pets.forEach(pet => {
       formArray.push(this.fb.group({
@@ -245,9 +245,9 @@ export class ClientFormComponent implements OnChanges, OnInit {
   }
 
   public closeAlert(alert: IAlert) {
-   const index: number = this.alerts.indexOf(alert);
-   this.alerts.splice(index, 1);
- }
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
 
   /* Client Form interface */
   get id() { return this.clientForm.get('id') }

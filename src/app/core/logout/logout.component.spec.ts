@@ -19,12 +19,12 @@ describe('LogoutComponent', () => {
         RouterModule.forRoot([]),
         HttpClientModule
       ],
-      declarations: [ LogoutComponent ],
+      declarations: [LogoutComponent],
       providers: [
-        {provide: APP_BASE_HREF, useValue : '/' }
+        { provide: APP_BASE_HREF, useValue: '/' }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

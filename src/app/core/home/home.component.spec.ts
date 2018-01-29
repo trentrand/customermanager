@@ -14,16 +14,16 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-        imports: [
-            RouterModule.forRoot([]),
-            HttpClientModule
-        ],
-        declarations: [ HomeComponent ],
-        providers: [
-            {provide: APP_BASE_HREF, useValue : '/' }
-        ]
+      imports: [
+        RouterModule.forRoot([]),
+        HttpClientModule
+      ],
+      declarations: [HomeComponent],
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

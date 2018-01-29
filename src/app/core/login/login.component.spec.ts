@@ -16,17 +16,17 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-        imports: [
-            ReactiveFormsModule,
-            HttpClientModule,
-            RouterModule.forRoot([])
-    ],
-      declarations: [ LoginComponent ],
+      imports: [
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterModule.forRoot([])
+      ],
+      declarations: [LoginComponent],
       providers: [
-        {provide: APP_BASE_HREF, useValue : '/' }
+        { provide: APP_BASE_HREF, useValue: '/' }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

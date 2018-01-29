@@ -10,18 +10,18 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
 
   beforeEach(async(() => {
-      TestBed.configureTestingModule({
-          imports: [
-              RouterModule.forRoot([]),
-              HttpClientModule,
-              NgbCollapseModule.forRoot()
-          ],
-          declarations: [ HeaderComponent ],
-          providers: [
-            {provide: APP_BASE_HREF, useValue : '/' }
-          ]
-      })
-    .compileComponents();
+    TestBed.configureTestingModule({
+      imports: [
+        RouterModule.forRoot([]),
+        HttpClientModule,
+        NgbCollapseModule.forRoot()
+      ],
+      declarations: [HeaderComponent],
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' }
+      ]
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

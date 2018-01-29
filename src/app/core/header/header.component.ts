@@ -30,8 +30,8 @@ export class HeaderComponent implements OnInit {
   public getCurrentRoute = () => this.route.snapshot.url;
 
   public isActive = (item: any) => {
-      this.currentRoute = this.getCurrentRoute();
-      return this.currentRoute === item.route || this.currentRoute === item.route.slice(0, -1);
+    this.currentRoute = this.getCurrentRoute();
+    return this.currentRoute === item.route || this.currentRoute === item.route.slice(0, -1);
   }
 
   public logout = () => {

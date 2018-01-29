@@ -18,8 +18,8 @@ export class AuthService {
   user: Observable<User | null>;
 
   constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore,
-              private router: Router) {
+    private afs: AngularFirestore,
+    private router: Router) {
 
     this.user = this.afAuth.authState
       .switchMap((user) => {
@@ -36,7 +36,7 @@ export class AuthService {
       .then((user) => {
         return this.updateUserData(user);
       })
-      .catch((error) => this.handleError(error) );
+      .catch((error) => this.handleError(error));
   }
 
   emailLogin(email: string, password: string) {
@@ -60,7 +60,7 @@ export class AuthService {
 
   signOut() {
     this.afAuth.auth.signOut().then(() => {
-        this.router.navigate(['/logout']);
+      this.router.navigate(['/logout']);
     });
   }
 

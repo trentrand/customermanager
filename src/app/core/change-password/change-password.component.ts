@@ -2,27 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
-    selector: 'core-change-password',
-    templateUrl: './change-password.component.html',
-    styleUrls: ['./change-password.component.scss']
+  selector: 'core-change-password',
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
-    error: string;
-    success: string;
-    passwordFormModel: any = {};
-    passwordErrors: string[] = [];
+  error: string;
+  success: string;
+  passwordFormModel: any = {};
+  passwordErrors: string[] = [];
 
-    constructor() {
-    }
+  constructor() {
+  }
 
-    ngOnInit() {
+  ngOnInit() {
 
-    }
+  }
 
-    public testPassword = () => {
-    }
+  public testPassword = () => {
+  }
 
-    public changePassword = (isValid: boolean) => {
-        this.success = this.error = null;
-    }
+  public changePassword = (isValid: boolean) => {
+    this.success = this.error = null;
+  }
 }

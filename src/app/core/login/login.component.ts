@@ -16,76 +16,76 @@ export class LoginComponent implements OnInit {
 
   alerts: Array<IAlert> = [];
 
-  constructor(private fb: FormBuilder, private auth: AuthService) {}
+  constructor(private fb: FormBuilder, private auth: AuthService) { }
 
   ngOnInit(): void {
-   this.buildForm();
+    this.buildForm();
   }
 
   login(): void {
-   this.auth.emailLogin(
-     this.userForm.value['email'], this.userForm.value['password']
-   ).then(
-     success => {
-       console.log(success)
-     },
-     error => {
-       console.log(error)
-       this.alerts.push({
-         type: 'warning',
-         message: error['message']
-       })
-     }
-   )
+    this.auth.emailLogin(
+      this.userForm.value['email'], this.userForm.value['password']
+    ).then(
+      success => {
+        console.log(success)
+      },
+      error => {
+        console.log(error)
+        this.alerts.push({
+          type: 'warning',
+          message: error['message']
+        })
+      }
+      )
   }
 
   resetPassword() {
-   this.auth.resetPassword(this.userForm.value['email'])
-   .then(() => this.passReset = true)
+    this.auth.resetPassword(this.userForm.value['email'])
+      .then(() => this.passReset = true)
 
-   this.alerts.push({
-     type: 'success',
-     message: 'Password reset email sent',
-   })
+    this.alerts.push({
+      type: 'success',
+      message: 'Password reset email sent',
+    })
   }
 
   buildForm(): void {
-   this.userForm = this.fb.group({
-     'email': ['', [
-         Validators.required,
-         Validators.email
-       ]
-     ],
-     'password': ['', [
-       Validators.minLength(6),
-       Validators.maxLength(45)
-     ]
-   ],
-   });
+    this.userForm = this.fb.group({
+      'email': ['', [
+        Validators.required,
+        Validators.email
+      ]
+      ],
+      'password': ['', [
+        Validators.minLength(6),
+        Validators.maxLength(45)
+      ]
+      ],
+    });
 
-   this.userForm.valueChanges.subscribe(data => this.onValueChanged(data));
-   this.onValueChanged();
+    this.userForm.valueChanges.subscribe(data => this.onValueChanged(data));
+    this.onValueChanged();
   }
 
   onValueChanged(data?: any) {
-   if (!this.userForm) { return; }
-   const form = this.userForm;
-   for (const field in this.formErrors) {
-     // clear previous error message (if any)
-     this.formErrors[field] = '';
-     const control = form.get(field);
-     if (control && control.dirty && !control.valid) {
-       const messages = this.validationMessages[field];
-       for (const key in control.errors) {
-         this.formErrors[field] += messages[key] + ' ';
-       }
-     }
-   }
+    if (!this.userForm) { return; }
+    const form = this.userForm;
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
   }
 
   closeAlert(alert: IAlert) {
-   const index: number = this.alerts.indexOf(alert);
-   this.alerts.splice(index, 1);
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
   }
 
   formErrors = {

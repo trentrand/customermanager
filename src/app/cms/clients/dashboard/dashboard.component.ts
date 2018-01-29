@@ -31,8 +31,8 @@ export class DashboardComponent implements OnInit {
     this.clientService.getClient(client.id)
     client.pinned = !client.pinned
     return this.clientService.updateClient(client)
-    .then((docRef ) => {
-      console.log("Toggled Client Pin", docRef);
-    })
+      .then((docRef) => {
+        console.log("Toggled Client Pin", docRef);
+      })
   }
 }

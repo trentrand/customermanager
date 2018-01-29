@@ -19,12 +19,12 @@ describe('ForgotPasswordComponent', () => {
         ReactiveFormsModule,
         HttpClientModule
       ],
-      declarations: [ ForgotPasswordComponent ],
+      declarations: [ForgotPasswordComponent],
       providers: [
-        {provide: APP_BASE_HREF, useValue : '/' }
+        { provide: APP_BASE_HREF, useValue: '/' }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
