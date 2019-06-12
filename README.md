@@ -16,6 +16,11 @@ This project is hosted by Firebase, and can be visited at the following default 
 
 _Additional domain names can be linked to the live website by configuring the settings on the Firebase Project Console (see above)._
 
+Try it out by logging in with the following credentials:  
+
+> **Username**: user@example.com  
+> **Password**: password
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
