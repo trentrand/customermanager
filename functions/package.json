@@ -2,7 +2,7 @@
   "name": "customermanager-functions",
   "description": "Firebase Functions for the Customer Manager project",
   "dependencies": {
-    "firebase-admin": "^5.4.2",
-    "firebase-functions": "^0.7.1"
+    "firebase-admin": "^11.4.1",
+    "firebase-functions": "^4.1.1"
   }
 }
